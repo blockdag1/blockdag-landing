@@ -12,6 +12,8 @@ const LINKS = {
   privacy: "https://blockdag.network/privacy",
 };
 
+const OFFICIAL_SITE = "https://blockdag.network/";
+
 type EventName =
   | "documentation_click"
   | "whitepaper_click"
@@ -306,7 +308,7 @@ export default function InformationHub() {
             <a href="#faq" onClick={closeMenu}>FAQ</a>
           </nav>
 
-          <a className="header-cta" href="#resources" onClick={closeMenu}>
+          <a className="header-cta" href={OFFICIAL_SITE} onClick={closeMenu}>
             Explore technology <Arrow />
           </a>
 
@@ -337,10 +339,10 @@ export default function InformationHub() {
                 Discover a Layer-1 blockchain architecture built around Directed Acyclic Graph technology and Proof-of-Work. Learn how the network approaches transaction processing, scalability and decentralized infrastructure.
               </p>
               <div className="action-row">
-                <a className="button button-primary" href="#architecture">
+                <a className="button button-primary" href={OFFICIAL_SITE}>
                   Explore the Architecture <Arrow />
                 </a>
-                <a className="button button-ghost" href="#resources">
+                <a className="button button-ghost" href={OFFICIAL_SITE}>
                   View Resources <Arrow />
                 </a>
               </div>
@@ -542,7 +544,7 @@ export default function InformationHub() {
             <div className="section-index section-index-centered"><span><Arrow /></span><span>Continue Exploring</span></div>
             <h2>Want to learn more about <em>BlockDAG?</em></h2>
             <p>Explore the architecture, technical resources and developer ecosystem behind the network.</p>
-            <div className="action-row action-row-centered"><a className="button button-primary" href="#architecture" onClick={() => trackEvent("qualified_engagement")}>Explore Technology <Arrow /></a><a className="button button-ghost" href="#resources" onClick={() => trackEvent("qualified_engagement")}>View Resources <Arrow /></a></div>
+            <div className="action-row action-row-centered"><a className="button button-primary" href={OFFICIAL_SITE} onClick={() => trackEvent("qualified_engagement")}>Explore Technology <Arrow /></a><a className="button button-ghost" href={OFFICIAL_SITE} onClick={() => trackEvent("qualified_engagement")}>View Resources <Arrow /></a></div>
           </div>
         </section>
       </main>
