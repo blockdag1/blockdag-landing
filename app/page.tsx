@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const LINKS = {
   documentation: "https://docs.blockdagnetwork.io/",
@@ -55,11 +56,72 @@ function ExternalLink({
 }
 
 function Arrow() {
-  return <span aria-hidden="true">↗</span>;
+  return (
+    <svg
+      className="arrow-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 18L18 6M18 6H9M18 6V15"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
-function Mark({ children }: { children: React.ReactNode }) {
-  return <div className="icon-mark">{children}</div>;
+function FaqIcon() {
+  return (
+    <span className="faq-icons" aria-hidden="true">
+      <svg
+        className="faq-icon faq-icon-plus"
+        width="25"
+        height="25"
+        viewBox="0 0 25 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.5 5.5V19.5M5.5 12.5H19.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <svg
+        className="faq-icon faq-icon-minus"
+        width="25"
+        height="25"
+        viewBox="0 0 25 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.5 12.5H19.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+function Mark({ children, icon }: { children?: React.ReactNode; icon?: string }) {
+  return (
+    <div className="icon-mark">
+      {icon ? <Image className="icon-mark-image" src={icon} width={20} height={20} alt="" /> : children}
+    </div>
+  );
 }
 
 function SectionHead({
@@ -98,7 +160,7 @@ function DagGraphic({ compact = false }: { compact?: boolean }) {
       <defs>
         <linearGradient id="dag-line" x1="0" x2="1">
           <stop offset="0" stopColor="#14a8ff" stopOpacity="0.15" />
-          <stop offset="0.5" stopColor="#bfff3f" stopOpacity="0.9" />
+          <stop offset="0.5" stopColor="#4ab3ff" stopOpacity="0.9" />
           <stop offset="1" stopColor="#14a8ff" stopOpacity="0.15" />
         </linearGradient>
         <filter id="dag-glow">
@@ -116,11 +178,11 @@ function DagGraphic({ compact = false }: { compact?: boolean }) {
         <path d="M326 180 L472 84 L536 211 L486 315" />
         <path d="M196 328 L320 372 L486 315" />
       </g>
-      <g className="dag-pulses" fill="none" stroke="#bfff3f" strokeWidth="2">
+      <g className="dag-pulses" fill="none" stroke="#4ab3ff" strokeWidth="2">
         <circle cx="326" cy="180" r="29" />
         <circle cx="326" cy="180" r="53" />
       </g>
-      <g className="dag-nodes" fill="#bfff3f" filter="url(#dag-glow)">
+      <g className="dag-nodes" fill="#4ab3ff" filter="url(#dag-glow)">
         <circle cx="70" cy="214" r="9" />
         <circle cx="194" cy="100" r="9" />
         <circle cx="326" cy="180" r="14" />
@@ -226,19 +288,9 @@ export default function InformationHub() {
         Skip to content
       </a>
 
-      <div className="announcement-bar">
-        <span className="announcement-pulse" aria-hidden="true" />
-        Technology &amp; Research Hub <span className="announcement-divider">/</span> Learn how BlockDAG is built
-      </div>
-
       <header className="site-header">
         <div className="container header-inner">
           <a className="brand" href="#top" onClick={closeMenu} aria-label="BlockDAG Technology Hub home">
-            <span className="brand-symbol" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
             <span>
               Block<span className="brand-accent">DAG</span>
             </span>
@@ -392,9 +444,9 @@ export default function InformationHub() {
               BlockDAG&apos;s architecture is designed around a graph-based structure. Explore how this approach addresses the organization of transactions and network activity.
             </SectionHead>
             <div className="card-grid card-grid-three">
-              <article className="info-card info-card-blue info-card-blue-outline reveal"><Mark>↗</Mark><h3>Graph-Based Processing</h3><p>Explore how a DAG structure can represent relationships between multiple blocks within a network.</p></article>
-              <article className="info-card info-card-blue info-card-blue-outline reveal reveal-delay-1"><Mark>◌</Mark><h3>Network Activity</h3><p>Understand the role of nodes, propagation and consensus in processing blockchain activity.</p></article>
-              <article className="info-card info-card-blue info-card-blue-outline reveal reveal-delay-2"><Mark>∞</Mark><h3>Scalability Research</h3><p>Learn about the architectural trade-offs involved in designing blockchain infrastructure for growing usage.</p></article>
+              <article className="info-card info-card-blue info-card-blue-outline reveal"><Mark icon="/icons/git-branch.svg" /><h3>Graph-Based Processing</h3><p>Explore how a DAG structure can represent relationships between multiple blocks within a network.</p></article>
+              <article className="info-card info-card-blue info-card-blue-outline reveal reveal-delay-1"><Mark icon="/icons/network.svg" /><h3>Network Activity</h3><p>Understand the role of nodes, propagation and consensus in processing blockchain activity.</p></article>
+              <article className="info-card info-card-blue info-card-blue-outline reveal reveal-delay-2"><Mark icon="/icons/scaling.svg" /><h3>Scalability Research</h3><p>Learn about the architectural trade-offs involved in designing blockchain infrastructure for growing usage.</p></article>
             </div>
           </div>
         </section>
@@ -418,9 +470,9 @@ export default function InformationHub() {
               Explore an environment designed to be familiar to developers working with Ethereum-compatible tooling, smart contracts and decentralized applications.
             </SectionHead>
             <div className="card-grid card-grid-three">
-              <article className="info-card info-card-white reveal"><Mark>S</Mark><h3>Solidity</h3><p>Explore smart-contract development using familiar EVM-oriented workflows.</p><span className="card-link-accent">Explore the stack <Arrow /></span></article>
-              <article className="info-card info-card-white reveal reveal-delay-1"><Mark>SC</Mark><h3>Smart Contracts</h3><p>Build programmable applications that interact with blockchain network state.</p><span className="card-link-accent">Explore the stack <Arrow /></span></article>
-              <article className="info-card info-card-white reveal reveal-delay-2"><Mark>dA</Mark><h3>Decentralized Apps</h3><p>Explore application architectures built on Layer-1 blockchain infrastructure.</p><span className="card-link-accent">Explore the stack <Arrow /></span></article>
+              <article className="info-card info-card-white reveal"><Mark>S</Mark><h3>Solidity</h3><p>Explore smart-contract development using familiar EVM-oriented workflows.</p></article>
+              <article className="info-card info-card-white reveal reveal-delay-1"><Mark>SC</Mark><h3>Smart Contracts</h3><p>Build programmable applications that interact with blockchain network state.</p></article>
+              <article className="info-card info-card-white reveal reveal-delay-2"><Mark>dA</Mark><h3>Decentralized Apps</h3><p>Explore application architectures built on Layer-1 blockchain infrastructure.</p></article>
             </div>
           </div>
         </section>
@@ -472,13 +524,13 @@ export default function InformationHub() {
           <div className="container faq-layout">
             <SectionHead index="11" label="FAQ" title="Frequently asked questions" light />
             <div className="faq-list reveal">
-              <details open><summary><span>01</span>What is BlockDAG?<b>+</b></summary><p>BlockDAG is a Layer-1 blockchain network using a Directed Acyclic Graph architecture and Proof-of-Work consensus.</p></details>
-              <details><summary><span>02</span>What is a Directed Acyclic Graph?<b>+</b></summary><p>A DAG is a graph structure made of directed relationships that do not form circular paths.</p></details>
-              <details><summary><span>03</span>How does DAG architecture differ from a traditional blockchain?<b>+</b></summary><p>A traditional blockchain generally organizes blocks into a linear sequence, while a DAG-based architecture can represent multiple relationships between blocks.</p></details>
-              <details><summary><span>04</span>What is a Layer-1 blockchain?<b>+</b></summary><p>Layer 1 refers to the base blockchain network on which transactions, smart contracts and decentralized applications can operate.</p></details>
-              <details><summary><span>05</span>How does Proof-of-Work work?<b>+</b></summary><p>Proof-of-Work requires participants to perform computational work as part of the network&apos;s consensus and security model.</p></details>
-              <details><summary><span>06</span>Is BlockDAG EVM compatible?<b>+</b></summary><p>The BlockDAG ecosystem is designed around EVM-compatible development and smart-contract workflows.</p></details>
-              <details><summary><span>07</span>Where can I learn more about the technology?<b>+</b></summary><p>Use the technical documentation, whitepaper and developer resources linked in the Research Hub.</p></details>
+              <details open><summary><span>01</span>What is BlockDAG?<b><FaqIcon /></b></summary><p>BlockDAG is a Layer-1 blockchain network using a Directed Acyclic Graph architecture and Proof-of-Work consensus.</p></details>
+              <details><summary><span>02</span>What is a Directed Acyclic Graph?<b><FaqIcon /></b></summary><p>A DAG is a graph structure made of directed relationships that do not form circular paths.</p></details>
+              <details><summary><span>03</span>How does DAG architecture differ from a traditional blockchain?<b><FaqIcon /></b></summary><p>A traditional blockchain generally organizes blocks into a linear sequence, while a DAG-based architecture can represent multiple relationships between blocks.</p></details>
+              <details><summary><span>04</span>What is a Layer-1 blockchain?<b><FaqIcon /></b></summary><p>Layer 1 refers to the base blockchain network on which transactions, smart contracts and decentralized applications can operate.</p></details>
+              <details><summary><span>05</span>How does Proof-of-Work work?<b><FaqIcon /></b></summary><p>Proof-of-Work requires participants to perform computational work as part of the network&apos;s consensus and security model.</p></details>
+              <details><summary><span>06</span>Is BlockDAG EVM compatible?<b><FaqIcon /></b></summary><p>The BlockDAG ecosystem is designed around EVM-compatible development and smart-contract workflows.</p></details>
+              <details><summary><span>07</span>Where can I learn more about the technology?<b><FaqIcon /></b></summary><p>Use the technical documentation, whitepaper and developer resources linked in the Research Hub.</p></details>
             </div>
           </div>
         </section>
@@ -486,7 +538,7 @@ export default function InformationHub() {
         <section className="final-section" data-section="final-cta">
           <div className="final-grid" aria-hidden="true" />
           <div className="container final-content reveal">
-            <div className="section-index section-index-centered"><span>→</span><span>Continue Exploring</span></div>
+            <div className="section-index section-index-centered"><span><Arrow /></span><span>Continue Exploring</span></div>
             <h2>Want to learn more about <em>BlockDAG?</em></h2>
             <p>Explore the architecture, technical resources and developer ecosystem behind the network.</p>
             <div className="action-row action-row-centered"><a className="button button-primary" href="#architecture" onClick={() => trackEvent("qualified_engagement")}>Explore Technology <Arrow /></a><a className="button button-ghost" href="#resources" onClick={() => trackEvent("qualified_engagement")}>View Resources <Arrow /></a></div>
@@ -496,7 +548,7 @@ export default function InformationHub() {
 
       <footer className="site-footer">
         <div className="container footer-grid">
-          <div className="footer-brand"><a className="brand" href="#top"><span className="brand-symbol" aria-hidden="true"><i /><i /><i /></span><span>Block<span className="brand-accent">DAG</span></span></a><p>Technology &amp; Research Hub</p></div>
+          <div className="footer-brand"><a className="brand" href="#top"><span>Block<span className="brand-accent">DAG</span></span></a><p>Technology &amp; Research Hub</p></div>
           <div><h3>Explore</h3><a href="#technology">Technology</a><a href="#architecture">Architecture</a><a href="#scalability">Scalability</a><a href="#developers">Developers</a></div>
           <div><h3>Resources</h3><ExternalLink href={LINKS.documentation} event="documentation_click">Documentation</ExternalLink><ExternalLink href={LINKS.whitepaper} event="whitepaper_click">Whitepaper</ExternalLink><a href="#faq">FAQ</a><ExternalLink href={LINKS.terms}>Legal</ExternalLink></div>
         </div>

@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Anek_Devanagari, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-dm-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
+const anekDevanagari = Anek_Devanagari({
+  subsets: ["devanagari"],
+  variable: "--font-anek-devanagari",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +58,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${spaceGrotesk.variable}`}>
+      <body className={`${dmSans.variable} ${anekDevanagari.variable}`}>
         {children}
         {gaId ? (
           <>
