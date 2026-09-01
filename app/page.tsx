@@ -291,7 +291,7 @@ export default function InformationHub() {
         Skip to content
       </a>
 
-      <header className="site-header">
+      <header className={`site-header ${menuOpen ? "site-header-menu-open" : ""}`}>
         <div className="container header-inner">
           <a className="brand" href="#top" onClick={closeMenu} aria-label="BlockDAG Technology Hub home">
             <span>

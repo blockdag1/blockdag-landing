@@ -1825,6 +1825,16 @@ button {
     min-height: 84px;
   }
 
+  .site-header-menu-open {
+    border-bottom-color: rgba(255, 255, 255, 0.24);
+    background: var(--primary);
+  }
+
+  .site-header-menu-open .menu-toggle {
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(0, 71, 155, 0.16);
+  }
+
   .header-inner {
     min-height: 84px;
   }
@@ -1844,16 +1854,17 @@ button {
   .desktop-nav {
     position: absolute;
     top: 84px;
-    right: 0;
-    left: 0;
+    right: -20px;
+    left: -20px;
     display: none;
     min-height: calc(100dvh - 84px);
     align-items: stretch;
     flex-direction: column;
-    gap: 28px;
-    padding: 30px 20px 50px;
+    gap: 26px;
+    padding: 34px 28px 56px;
     background: var(--primary);
-    box-shadow: var(--shadow);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: none;
   }
 
   .desktop-nav-open {
@@ -1990,6 +2001,18 @@ button {
     right: 18px;
     left: 18px;
     font-size: 8px;
+  }
+
+  .hero-visual::before {
+    top: 9px;
+    left: 9px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .visual-topline {
+    top: 19px;
+    left: 34px;
   }
 
   .dag-graphic {
@@ -2225,6 +2248,11 @@ button {
 
   .hero-visual {
     min-height: 410px;
+  }
+
+  .desktop-nav {
+    right: -16px;
+    left: -16px;
   }
 
   .hero-stat-grid {
