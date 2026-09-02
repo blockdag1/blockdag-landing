@@ -12,7 +12,7 @@ const LINKS = {
   privacy: "https://blockdag.network/privacy",
 };
 
-const OFFICIAL_SITE = "https://blockdag.network/";
+const OFFICIAL_SITE = "https://blockdag.network/?utm_source=gpt&utm_medium=ppc&utm_campaign={{campaign.id}}&utm_content={{ad.id}}&utm_term={{placement}}";
 
 type EventName =
   | "documentation_click"
