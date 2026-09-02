@@ -12,7 +12,14 @@ const LINKS = {
   privacy: "https://blockdag.network/privacy",
 };
 
-const OFFICIAL_SITE = "https://blockdag.network/?utm_source=gpt&utm_medium=ppc&utm_campaign={{campaign.id}}&utm_content={{ad.id}}&utm_term={{placement}}";
+const OFFICIAL_SITE = "https://blockdag.network/";
+const ATTRIBUTION_PARAMS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+];
 
 type EventName =
   | "documentation_click"
@@ -33,6 +40,20 @@ function trackEvent(name: EventName) {
   gtag?.("event", name, { page_location: window.location.href });
 }
 
+function getOfficialSiteUrl() {
+  const target = new URL(OFFICIAL_SITE);
+
+  if (typeof window === "undefined") return target.toString();
+
+  const incomingParams = new URLSearchParams(window.location.search);
+  ATTRIBUTION_PARAMS.forEach((param) => {
+    const value = incomingParams.get(param);
+    if (value) target.searchParams.set(param, value);
+  });
+
+  return target.toString();
+}
+
 function ExternalLink({
   href,
   event,
@@ -51,6 +72,32 @@ function ExternalLink({
       target="_blank"
       rel="noreferrer"
       onClick={() => event && trackEvent(event)}
+    >
+      {children}
+    </a>
+  );
+}
+
+function OfficialSiteLink({
+  children,
+  className,
+  event,
+  onClick,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  event?: EventName;
+  onClick?: () => void;
+}) {
+  return (
+    <a
+      className={className}
+      href={OFFICIAL_SITE}
+      onClick={(clickEvent) => {
+        clickEvent.currentTarget.href = getOfficialSiteUrl();
+        if (event) trackEvent(event);
+        onClick?.();
+      }}
     >
       {children}
     </a>
@@ -308,9 +355,9 @@ export default function InformationHub() {
             <a href="#faq" onClick={closeMenu}>FAQ</a>
           </nav>
 
-          <a className="header-cta" href={OFFICIAL_SITE} onClick={closeMenu}>
+          <OfficialSiteLink className="header-cta" onClick={closeMenu}>
             Explore technology <Arrow />
-          </a>
+          </OfficialSiteLink>
 
           <button
             className="menu-toggle"
@@ -339,12 +386,12 @@ export default function InformationHub() {
                 Discover a Layer-1 blockchain architecture built around Directed Acyclic Graph technology and Proof-of-Work. Learn how the network approaches transaction processing, scalability and decentralized infrastructure.
               </p>
               <div className="action-row">
-                <a className="button button-primary" href={OFFICIAL_SITE}>
+                <OfficialSiteLink className="button button-primary">
                   Explore the Architecture <Arrow />
-                </a>
-                <a className="button button-ghost" href={OFFICIAL_SITE}>
+                </OfficialSiteLink>
+                <OfficialSiteLink className="button button-ghost">
                   View Resources <Arrow />
-                </a>
+                </OfficialSiteLink>
               </div>
               <div className="hero-meta">
                 <span><i /> Built for curious minds</span>
@@ -544,7 +591,7 @@ export default function InformationHub() {
             <div className="section-index section-index-centered"><span><Arrow /></span><span>Continue Exploring</span></div>
             <h2>Want to learn more about <em>BlockDAG?</em></h2>
             <p>Explore the architecture, technical resources and developer ecosystem behind the network.</p>
-            <div className="action-row action-row-centered"><a className="button button-primary" href={OFFICIAL_SITE} onClick={() => trackEvent("qualified_engagement")}>Explore Technology <Arrow /></a><a className="button button-ghost" href={OFFICIAL_SITE} onClick={() => trackEvent("qualified_engagement")}>View Resources <Arrow /></a></div>
+            <div className="action-row action-row-centered"><OfficialSiteLink className="button button-primary" event="qualified_engagement">Explore Technology <Arrow /></OfficialSiteLink><OfficialSiteLink className="button button-ghost" event="qualified_engagement">View Resources <Arrow /></OfficialSiteLink></div>
           </div>
         </section>
       </main>
